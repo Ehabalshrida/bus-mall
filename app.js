@@ -31,7 +31,7 @@ let imgArray = [
 
 let all = [];
 let counter = 0;
-let numberOfRound = 5;
+let numberOfRound = 25;
 
 const imageSection = document.getElementById('imageSection');
 let img1 = document.getElementById( 'img1' );
