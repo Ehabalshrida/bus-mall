@@ -35,22 +35,23 @@ let random1;
 let random2;
 let random3;
 let resultButton = document.getElementById('viewResults');
-function mall(name, imageSrc) {
+function mall(name, imageSrc  , shown = 0 , clicks = 0) {
   this.name = name;
   this.image = imageSrc;
-  this.shown = 0;
-  this.clicks = 0;
+  this.shown = shown;
+  this.clicks = clicks ;
   mall.all.push(this);
 }
 
 mall.all = [];
+saveData();
 
-for (let i = 0; i < imgArray.length; i++) {
-  new mall(imgArray[i].split('.')[0], imgArray[i]);
-}
 
 console.log(mall.all);
 
+/*for (let j = 0; j < imgArray.length; j++){
+  new mall(imgArray[j].split('.')[0], imgArray[j] )
+}*/
 
 function render() {
 
@@ -67,9 +68,9 @@ function render() {
   mall.all[random1].shown++;
   mall.all[random2].shown++;
   mall.all[random3].shown++;
-
-
+ localStorage.data = JSON.stringify( mall.all );
 }
+
 render();
 
 imageSection.addEventListener('click', clickvote);
@@ -92,7 +93,7 @@ function clickvote(event) {
 
     do {
       render();
-      nexArr = [random1, random1, random1];
+      nexArr = [random1, random2, random3];
     } while (!repeated(preArr, nexArr));
   }
 
@@ -103,22 +104,29 @@ function clickvote(event) {
 
 
 function step1() {
-  if (resultButton.textContent === 'reset') {
-    window.location.reload();
-  }
-  else {
     imageSection.removeEventListener('click', clickvote);
     createChart();
-    voteResults();
-
-  }
+    voteResults(); 
 }
 
 
 
+function saveData (){
 
+  if(localStorage.data){
+    let next = JSON.parse(localStorage.data);
 
+    for (let i = 0; i < next.length; i++) {
+      new mall(next[i].name , next[i].image , next[i].shown ,next[i].clicks);
+    }} else {
 
+     for (let j = 0; j < imgArray.length; j++){
+        new mall(imgArray[j].split('.')[0], imgArray[j] )
+
+    }
+
+  }
+}
 
 
 function voteResults() {

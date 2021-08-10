@@ -16,3 +16,12 @@ main section  img{
 main{
     width: 960px;
 }
+#viewResults {
+    visibility: hidden;
+}
+ul{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 20px;
+    
+}
